@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 class CustomIcon extends StatelessWidget {
   const CustomIcon({
     super.key,
-    required this.icon, required this.onPressed,
+    required this.icon,
+    required this.onPressed,
   });
-  
-  final Icon icon;
+
+  final IconData icon;
   final VoidCallback onPressed;
 
   @override
@@ -21,7 +22,10 @@ class CustomIcon extends StatelessWidget {
       child: Center(
         child: IconButton(
           onPressed: onPressed,
-          icon: icon,
+          icon: Icon(
+            icon,
+            size: 28,
+          ),
         ),
       ),
     );
