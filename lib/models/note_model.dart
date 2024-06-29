@@ -2,7 +2,12 @@ class NoteModel {
   final String title;
   final String subTitle;
   final String date;
-  final int colot;
+  final int color;
 
-  NoteModel(this.date, this.colot, {required this.title, required this.subTitle});
+  NoteModel({
+    required this.date,
+    required this.color,
+    required this.title,
+    required this.subTitle,
+  });
 }
