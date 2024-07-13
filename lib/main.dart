@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:notes/consts.dart';
-import 'package:notes/cubits/cubit/theme_cubit.dart';
+import 'package:notes/cubits/theme_cubit/theme_cubit.dart';
 import 'package:notes/cubits/notes_cubit/notes_cubit.dart';
 import 'package:notes/models/note_model.dart';
 import 'package:notes/simple_bloc_observer.dart';
-import 'package:notes/views/notes_view.dart';
+import 'package:notes/views/notes_app_main.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -21,24 +21,10 @@ class NotesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => NotesCubit()),
-        BlocProvider(create: (context) => ThemeCubit()),
-      ],
-      child: BlocBuilder<ThemeCubit, ThemeState>(
-        builder: (context, state) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              brightness:
-                  state is ThemeDark ? Brightness.dark : Brightness.light,
-              fontFamily: 'Poppins',
-            ),
-            home: const NotesView(),
-          );
-        },
-      ),
-    );
+    return MultiBlocProvider(providers: [
+      BlocProvider(create: (context) => NotesCubit()),
+      BlocProvider(create: (context) => ThemeCubit()),
+    ], child: const NotesAppView());
   }
 }
+
