@@ -4,7 +4,6 @@ class CustomIcon extends StatelessWidget {
   const CustomIcon({
     super.key,
     required this.icon, this.onPressed,
-    
   });
 
   final IconData icon;
