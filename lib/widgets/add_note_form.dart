@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:notes/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:notes/cubits/theme_cubit/theme_cubit.dart';
 import 'package:notes/models/note_model.dart';
 import 'package:notes/widgets/colors_list_view.dart';
 import 'package:notes/widgets/custom_button.dart';
@@ -32,22 +33,34 @@ class _AddNoteFormState extends State<AddNoteForm> {
           const SizedBox(
             height: 32,
           ),
-          CustomTextField(
-            hintText: 'Title',
-            onSaved: (value) {
-              title = value;
+          BlocBuilder<ThemeCubit, ThemeState>(
+            builder: (context, state) {
+              return CustomTextField(
+                borderColor:
+                    state is ThemeDark ? Colors.white : Colors.grey[700],
+                hintText: 'Title',
+                onSaved: (value) {
+                  title = value;
+                },
+              );
             },
           ),
           const SizedBox(
             height: 16,
           ),
-          CustomTextField(
-            onSaved: (value) {
-              subTitle = value;
+          BlocBuilder<ThemeCubit, ThemeState>(
+            builder: (context, state) {
+              return CustomTextField(
+                borderColor:
+                    state is ThemeDark ? Colors.white : Colors.grey[700],
+                onSaved: (value) {
+                  subTitle = value;
+                },
+                hintText: 'Content',
+                maxLines: null,
+                minLines: 5,
+              );
             },
-            hintText: 'Content',
-            maxLines: null,
-            minLines: 5,
           ),
           const SizedBox(
             height: 32,

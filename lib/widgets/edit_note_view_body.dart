@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/consts.dart';
 import 'package:notes/cubits/notes_cubit/notes_cubit.dart';
+import 'package:notes/cubits/theme_cubit/theme_cubit.dart';
 import 'package:notes/models/note_model.dart';
 import 'package:notes/widgets/colors_list_view.dart';
 import 'package:notes/widgets/custom_app_bar.dart';
@@ -58,18 +59,30 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
           const SizedBox(
             height: 50,
           ),
-          CustomTextField(
-            controller: titleController,
-            hintText: 'Title',
+          BlocBuilder<ThemeCubit, ThemeState>(
+            builder: (context, state) {
+              return CustomTextField(
+                borderColor:
+                    state is ThemeDark ? Colors.white : Colors.grey[800],
+                controller: titleController,
+                hintText: 'Title',
+              );
+            },
           ),
           const SizedBox(
             height: 16,
           ),
-          CustomTextField(
-            controller: contentController,
-            hintText: 'Content',
-            maxLines: null,
-            minLines: 5,
+          BlocBuilder<ThemeCubit, ThemeState>(
+            builder: (context, state) {
+              return CustomTextField(
+                borderColor:
+                    state is ThemeDark ? Colors.white : Colors.grey[800],
+                controller: contentController,
+                hintText: 'Content',
+                maxLines: null,
+                minLines: 5,
+              );
+            },
           ),
           const SizedBox(
             height: 18,

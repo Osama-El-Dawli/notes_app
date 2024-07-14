@@ -9,7 +9,8 @@ class CustomTextField extends StatelessWidget {
       this.onSaved,
       this.onChanged,
       this.controller,
-      this.minLines});
+      this.minLines,
+      this.borderColor});
 
   final int? maxLines;
   final int? minLines;
@@ -17,6 +18,7 @@ class CustomTextField extends StatelessWidget {
   final void Function(String?)? onSaved;
   final Function(String)? onChanged;
   final TextEditingController? controller;
+  final Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +35,12 @@ class CustomTextField extends StatelessWidget {
       },
       maxLines: maxLines,
       minLines: minLines,
-      
       cursorColor: kPrimaryColor,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: const TextStyle(color: kPrimaryColor),
-        border: buildBorder(),
-        enabledBorder: buildBorder(),
+        border: buildBorder(color: borderColor),
+        enabledBorder: buildBorder(color: borderColor),
         focusedBorder: buildBorder(color: kPrimaryColor),
       ),
     );

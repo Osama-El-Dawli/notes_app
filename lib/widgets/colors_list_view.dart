@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/consts.dart';
 import 'package:notes/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:notes/cubits/theme_cubit/theme_cubit.dart';
 
 class ColorsListView extends StatefulWidget {
   const ColorsListView({super.key});
@@ -12,7 +13,7 @@ class ColorsListView extends StatefulWidget {
 
 class _ColorsListViewState extends State<ColorsListView> {
   int currentIndex = 0;
-  
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -48,13 +49,18 @@ class ColorItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isActive
-        ? CircleAvatar(
-            backgroundColor: Colors.white,
-            radius: 38,
-            child: CircleAvatar(
-              backgroundColor: color,
-              radius: 34,
-            ),
+        ? BlocBuilder<ThemeCubit, ThemeState>(
+            builder: (context, state) {
+              return CircleAvatar(
+                backgroundColor:
+                    state is ThemeDark ? Colors.white : Colors.grey,
+                radius: 38,
+                child: CircleAvatar(
+                  backgroundColor: color,
+                  radius: 34,
+                ),
+              );
+            },
           )
         : CircleAvatar(
             backgroundColor: color,
