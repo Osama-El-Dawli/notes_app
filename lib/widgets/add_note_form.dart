@@ -46,7 +46,8 @@ class _AddNoteFormState extends State<AddNoteForm> {
               subTitle = value;
             },
             hintText: 'Content',
-            maxLines: 5,
+            maxLines: null,
+            minLines: 5,
           ),
           const SizedBox(
             height: 32,

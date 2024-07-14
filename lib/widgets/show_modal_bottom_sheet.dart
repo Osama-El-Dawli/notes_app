@@ -29,6 +29,7 @@ class ShowModalBottomSheet extends StatelessWidget {
             return AbsorbPointer(
               absorbing: state is AddNoteLoading ? true : false,
               child: const SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 child: AddNoteForm(),
               ),
             );

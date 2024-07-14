@@ -18,7 +18,23 @@ class EditNoteViewBody extends StatefulWidget {
 }
 
 class _EditNoteViewBodyState extends State<EditNoteViewBody> {
-  String? title, content;
+  late TextEditingController titleController;
+  late TextEditingController contentController;
+
+  @override
+  void initState() {
+    super.initState();
+    titleController = TextEditingController(text: widget.note.title);
+    contentController = TextEditingController(text: widget.note.subTitle);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    titleController.dispose();
+    contentController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,8 +46,8 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
           ),
           CustomAppBar(
             onIconPressed: () {
-              widget.note.title = title ?? widget.note.title;
-              widget.note.subTitle = content ?? widget.note.subTitle;
+              widget.note.title = titleController.text;
+              widget.note.subTitle = contentController.text;
               widget.note.save();
               BlocProvider.of<NotesCubit>(context).fetchAllNotes();
               Navigator.pop(context);
@@ -43,20 +59,17 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
             height: 50,
           ),
           CustomTextField(
-            onChanged: (value) {
-              title = value;
-            },
-            hintText: widget.note.title,
+            controller: titleController,
+            hintText: 'Title',
           ),
           const SizedBox(
             height: 16,
           ),
           CustomTextField(
-            onChanged: (value) {
-              content = value;
-            },
-            hintText: widget.note.subTitle,
-            maxLines: 5,
+            controller: contentController,
+            hintText: 'Content',
+            maxLines: null,
+            minLines: 5,
           ),
           const SizedBox(
             height: 18,
